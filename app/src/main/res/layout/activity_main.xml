@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="43dp" />
+
+    <Button
+        android:id="@+id/btnForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ir para o formulário" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="74dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="77dp" />
+
+    <TextView
+        android:id="@+id/txtViewURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Link para atualizar o formulário:" />
+
+    <EditText
+        android:id="@+id/edtTextURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textUri|textShortMessage"
+        android:hint="https://..."/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+
+    <Button
+        android:id="@+id/btnAtualizaForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar por novo formulário" />
+
+</LinearLayout>
