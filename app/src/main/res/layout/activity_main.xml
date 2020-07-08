@@ -53,6 +53,12 @@
         android:id="@+id/btnAtualizaForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Buscar por novo formulário" />
+        android:text="Atualizar URL de formulário" />
+
+    <Button
+        android:id="@+id/btnSincronizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sincronizar dados" />
 
 </LinearLayout>

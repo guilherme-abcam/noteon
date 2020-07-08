@@ -20,16 +20,42 @@
         android:text="Exemplo de primeiro campo:" />
 
     <EditText
-        android:id="@+id/edtTextFormField1"
+        android:id="@+id/username"
+        android:hint="username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/fname"
+        android:hint="Fname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/lname"
+        android:hint="Lname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:hint="Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"/>
 
     <Button
-        android:id="@+id/btnFormEnviar"
+        android:id="@+id/btnFormSalvar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enviar formulário" />
+        android:text="Salvar dados" />
 
 </LinearLayout>
+
