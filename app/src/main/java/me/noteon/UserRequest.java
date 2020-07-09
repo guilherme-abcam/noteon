@@ -1,11 +1,13 @@
 package me.noteon;
 
+import java.util.Date;
+
 public class UserRequest {
 private String username;
 private String first_name;
 private String last_name;
 private String email;
-private String date_joined =  "2020-04-20T12:16:34.566Z";
+private String date_joined =  new Date(System.currentTimeMillis()).toString();
 
     public String getUsername() {
         return username;

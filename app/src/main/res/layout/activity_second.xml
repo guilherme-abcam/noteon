@@ -4,44 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="43dp" />
 
     <Button
         android:id="@+id/btnFormVoltar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voltar" />
+        android:text="🏠 Voltar" />
 
-    <TextView
-        android:id="@+id/txtViewFormFieldNum1"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Exemplo de primeiro campo:" />
+        android:layout_height="36dp" />
 
     <EditText
         android:id="@+id/username"
-        android:hint="username"
+        android:hint="Nome de usuário"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="21dp" />
 
     <EditText
         android:id="@+id/fname"
-        android:hint="Fname"
+        android:hint="Nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="21dp" />
+
     <EditText
         android:id="@+id/lname"
-        android:hint="Lname"
+        android:hint="Sobrenome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="21dp" />
 
     <EditText
         android:id="@+id/email"
@@ -51,11 +66,15 @@
         android:ems="10"
         android:inputType="text"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="54dp" />
+
     <Button
         android:id="@+id/btnFormSalvar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salvar dados" />
+        android:text="✔ Salvar dados" />
 
 </LinearLayout>
 

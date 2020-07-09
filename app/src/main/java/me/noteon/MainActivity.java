@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (edTextURL.getText().toString().length() > 0) {
-
                     if (!edTextURL.getText().toString()
                             .matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)")) {
                         Toast.makeText(MainActivity.this, "Insira uma URL válida!",
@@ -93,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
                         ApiClient.updateBaseURL(edTextURL.getText().toString());
                         Toast.makeText(MainActivity.this, "URL de Formulário Atualizada!",
                                 Toast.LENGTH_SHORT).show();
+                        edTextURL.setText("");
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Insira uma URL Válida!",
+                    Toast.makeText(MainActivity.this, "Insira uma URL para atualizar!",
                             Toast.LENGTH_SHORT).show();
+                    edTextURL.requestFocus();
                 }
             }
         });

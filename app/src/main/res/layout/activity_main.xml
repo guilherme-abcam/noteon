@@ -15,11 +15,11 @@
         android:id="@+id/btnForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ir para o formulário" />
+        android:text="📝 Ir para o formulário" />
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="74dp" />
+        android:layout_height="31dp" />
 
     <View
         android:id="@+id/divider"
@@ -29,7 +29,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="77dp" />
+        android:layout_height="33dp" />
 
     <TextView
         android:id="@+id/txtViewURL"
@@ -47,18 +47,24 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="12dp" />
+        android:layout_height="30dp" />
 
-    <Button
-        android:id="@+id/btnAtualizaForm"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Atualizar URL de formulário" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnSincronizar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sincronizar dados" />
+        <Button
+            android:id="@+id/btnAtualizaForm"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="🔄 Atualizar URL de formulário" />
+
+        <Button
+            android:id="@+id/btnSincronizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✔ Sincronizar dados" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </LinearLayout>
