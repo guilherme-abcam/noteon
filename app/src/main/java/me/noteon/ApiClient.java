@@ -9,14 +9,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static String BASE_URL = "https://enyx66inxn4d.x.pipedream.net";
+    public static String BASE_URL = "";
+    public static String FORM_ID = "";
 
-    public static void updateBaseURL(String url) {
+    public static void setBaseURL(String url) {
         BASE_URL = url;
     }
 
-    private static Retrofit getRetrofit(){
+    public static void setFormID(String url) {
+        FORM_ID = url;
+    }
 
+    private static Retrofit getRetrofit() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -28,17 +32,13 @@ public class ApiClient {
                 .client(okHttpClient)
                 .build();
 
-
         return retrofit;
-
     }
 
 
-    public static UserService getUserService(){
+    public static UserService getUserService() {
         UserService userService = getRetrofit().create(UserService.class);
 
         return userService;
-
     }
-
 }

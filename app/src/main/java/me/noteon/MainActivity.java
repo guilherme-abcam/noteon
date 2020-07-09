@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import me.noteon.models.UserList;
 import retrofit2.Call;
@@ -47,7 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isFilePresent = isFilePresent(getApplicationContext(), "storage.json");
         if(!isFilePresent) {
-            create(getApplicationContext(), "storage.json", "{\"entries\": []}");
+            create(getApplicationContext(), "storage.json", "{" +
+                    "\"baseURL\": \"" + ApiClient.BASE_URL + "\"," +
+                    "\"formID\": \"" + ApiClient.FORM_ID + "\"," +
+                    "\"entries\": []" +
+                    "}");
+        } else {
+            String jsonString = read(getApplicationContext(), "storage.json");
+            UserList userList = new Gson().fromJson(jsonString, UserList.class);
+
+            ApiClient.setBaseURL(userList.baseURL);
+            ApiClient.setFormID(userList.formID);
         }
     }
 
@@ -61,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadWidgetsSecondActivity() {
         btFormVoltar = findViewById(R.id.btnFormVoltar);
         btFormSalvar = findViewById(R.id.btnFormSalvar);
-//        edTextFormField1 = findViewById(R.id.edtTextFormField1);
         edusername = findViewById(R.id.username);
         edfname = findViewById(R.id.fname);
         edlname = findViewById(R.id.lname);
@@ -73,10 +83,14 @@ public class MainActivity extends AppCompatActivity {
         btForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Indo para o formulário!", Toast.LENGTH_SHORT).show();
-                setContentView(R.layout.activity_second);
-                loadWidgetsSecondActivity();
-                setListenersSecondActivity();
+                if (ApiClient.BASE_URL.isEmpty() || ApiClient.FORM_ID.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Não há uma URL de formulário configurada!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Indo para o formulário!", Toast.LENGTH_SHORT).show();
+                    setContentView(R.layout.activity_second);
+                    loadWidgetsSecondActivity();
+                    setListenersSecondActivity();
+                }
             }
         });
 
@@ -85,14 +99,40 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (edTextURL.getText().toString().length() > 0) {
                     if (!edTextURL.getText().toString()
-                            .matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)")) {
+                            .matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/=!]*)")) {
                         Toast.makeText(MainActivity.this, "Insira uma URL válida!",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        ApiClient.updateBaseURL(edTextURL.getText().toString());
-                        Toast.makeText(MainActivity.this, "URL de Formulário Atualizada!",
-                                Toast.LENGTH_SHORT).show();
-                        edTextURL.setText("");
+                        String url = edTextURL.getText().toString();
+                        String pattern = "(https?:\\/\\/.+)\\/(.+)";
+
+                        Pattern r = Pattern.compile(pattern);
+                        Matcher m = r.matcher(url);
+
+                        if (m.find( )) {
+                            String baseURL = m.group(1);
+                            String formID = m.group(2);
+
+                            ApiClient.setBaseURL(baseURL);
+                            ApiClient.setFormID(formID);
+
+                            String jsonString = read(getApplicationContext(), "storage.json");
+                            UserList userList = new Gson().fromJson(jsonString, UserList.class);
+
+                            userList.baseURL = baseURL;
+                            userList.formID = formID;
+
+                            Gson gson = new Gson();
+                            create(getApplicationContext(), "storage.json", gson.toJson(userList));
+
+                            Toast.makeText(MainActivity.this, "URL de Formulário Atualizada!",
+                                    Toast.LENGTH_SHORT).show();
+                            edTextURL.setText("");
+
+                        } else {
+                            Toast.makeText(MainActivity.this, "URL inválida!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
                     Toast.makeText(MainActivity.this, "Insira uma URL para atualizar!",
@@ -181,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         userRequest.setEmail(edemail.getText().toString());
         userRequest.setLast_name(edlname.getText().toString());
         userRequest.setFirst_name(edfname.getText().toString());
+        userRequest.setFormID(ApiClient.FORM_ID);
 
         return userRequest;
     }
@@ -189,7 +230,8 @@ public class MainActivity extends AppCompatActivity {
         final AtomicBoolean atomicBoolean = new AtomicBoolean(true);
 
 
-        Call<UserResponse> userResponseCall = ApiClient.getUserService().saveUser(userRequest);
+        Call<UserResponse> userResponseCall = ApiClient.getUserService()
+                .sendData(userRequest.getFormID(), userRequest);
         userResponseCall.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
@@ -204,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Request failed "+ t.getCause(),Toast.LENGTH_LONG).show();
                 atomicBoolean.set(false);
             }
         });

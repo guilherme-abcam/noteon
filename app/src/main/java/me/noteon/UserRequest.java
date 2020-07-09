@@ -8,6 +8,7 @@ private String first_name;
 private String last_name;
 private String email;
 private String date_joined =  new Date(System.currentTimeMillis()).toString();
+private String formID;
 
     public String getUsername() {
         return username;
@@ -49,6 +50,14 @@ private String date_joined =  new Date(System.currentTimeMillis()).toString();
         this.date_joined = date_joined;
     }
 
+    public String getFormID() {
+        return formID;
+    }
+
+    public void setFormID(String formID) {
+        this.formID = formID;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -56,7 +65,8 @@ private String date_joined =  new Date(System.currentTimeMillis()).toString();
                 "\"first_name\": \"" + first_name + "\"," +
                 "\"last_name\": \"" + last_name + "\"," +
                 "\"email\": \"" + email + "\"," +
-                "\"date_joined\": \"" + date_joined + "\"" +
+                "\"date_joined\": \"" + date_joined + "\"," +
+                "\"formID\": \"" + formID + "\"," +
                 '}';
     }
 }
